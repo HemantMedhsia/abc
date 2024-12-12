@@ -5,6 +5,7 @@ import {
     getAdminById,
     getAllAdmin,
     loginAdmin,
+    newRefreshToken,
     updateAdmin,
 } from "../Controller/admin.Controller.js";
 
@@ -16,5 +17,6 @@ router.get("/get-admin-by-id", getAdminById);
 router.delete("/delete-admin", deleteAdmin);
 router.put("/update-admin", updateAdmin);
 router.post("/admin-login", loginAdmin);
+router.post("/refresh-token-admin", newRefreshToken);
 
 export { router as adminRoutes };

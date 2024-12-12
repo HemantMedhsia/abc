@@ -4,6 +4,7 @@ import { ApiResponse } from "../util/responseHandler.js";
 import { ApiError } from "../util/errorHandler.js";
 import { generateRefreshToken } from "../util/generateRefreshToken.js";
 import { generateAccessToken } from "../util/generateAcessToken.js";
+import jwt from "jsonwebtoken";
 
 export const createAdmin = wrapAsync(async (req, res, next) => {
     const { name, email, password, address } = req.body;
@@ -151,8 +152,36 @@ export const newRefreshToken = wrapAsync(async (req, res, next) => {
     let decodeToken;
 
     try {
-        // decodToken = jwt.verify()
+        decodeToken = jwt.verify(
+            newRefreshToken,
+            process.env.REFRESH_TOKEN_SECRET
+        );
     } catch (error) {
-        console.log(error);
+        return next(new ApiError(401, "Invalid refesh token"));
     }
+
+    const admin = await Admin.findById(decodeToken?.id);
+    if (!admin) {
+        return next(new ApiError(401, "Invalid refesh token"));
+    }
+
+    if (newRefreshToken !== admin.refreshToken) {
+        return next(new ApiError(401, "Refresh token is expired or used "));
+    }
+
+    const { accessToken } = await generateAccessAndRefreshTokens(
+        admin._id,
+        { accessToken: true, refreshToken: false },
+        next
+    );
+
+    return res
+        .status(200)
+        .json(
+            new ApiResponse(
+                200,
+                { accessToken, newRefreshToken },
+                "New access token generated"
+            )
+        );
 });

@@ -55,4 +55,60 @@ export const getUserId = wrapAsync(async (req, res, next) => {
     res.status(200).json(new ApiResponse(200, user, "User Found Successfully"));
 });
 
-export const updateUser = wrapAsync(async (req, res, next) => {});
+export const updateUser = wrapAsync(async (req, res, next) => {
+    const { userId, name, email, description, address, hobby, location } =
+        req.body;
+
+    console.log(
+        "Id",
+        userId,
+        "Name",
+        name,
+        "Email",
+        email,
+        "Description",
+        description,
+        "Address",
+        address,
+        "Hobby",
+        hobby,
+        "Location",
+        location
+    );
+
+    const photo = req.file ? req.file.path : null;
+
+    const user = await User.findById(userId);
+    if (!user) {
+        return next(new ApiError(404, "User Not Found"));
+    }
+
+    user.name = name || user.name;
+    user.email = email || user.email;
+    user.description = description || user.description;
+    user.address = address || user.address;
+    user.hobby = hobby || user.hobby;
+    user.location = location || user.location;
+
+    if (photo) {
+        user.photo = photo;
+    }
+
+    await user.save();
+
+    return res
+        .status(200)
+        .json(new ApiResponse(200, user, "User Updated Successfully"));
+});
+
+export const deleteUser = wrapAsync(async (req, res, next) => {
+    const deleteUser = await User.findByIdAndDelete(req.body.id);
+
+    if (!deleteUser) {
+        return next(new ApiError(404, "User Not Found"));
+    }
+
+    res.status(200).json(
+        new ApiResponse(200, deleteUser, "User Deleted Successfully")
+    );
+});

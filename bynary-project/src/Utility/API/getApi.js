@@ -8,7 +8,7 @@ const getAPI = async (endpoint, params = {}, setStateData) => {
     const config = {
       method: getApiConfig[endpoint].method,
       headers: await getHeaders(["access-token"]),
-      url: `${BASE_URL}${getApiConfig[endpoint].url}`,
+      url: `${BASE_URL}/api/${getApiConfig[endpoint].url}`,
       params: params,
     };
     const response = await axios(config);

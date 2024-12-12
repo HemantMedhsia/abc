@@ -3,6 +3,7 @@ import { ApiResponse } from "../util/responseHandler.js";
 import { ApiError } from "../util/errorHandler.js";
 import { User } from "../Model/user.Model.js";
 import { createUserValidation } from "../Validation/user.Validation.js";
+import cloudinary from "../util/cloudinaryConfig.js";
 
 export const createUser = wrapAsync(async (req, res, next) => {
     const { error } = createUserValidation.validate({
@@ -106,6 +107,17 @@ export const deleteUser = wrapAsync(async (req, res, next) => {
 
     if (!deleteUser) {
         return next(new ApiError(404, "User Not Found"));
+    }
+
+    if (deleteUser.photo) {
+        const photoUrl = deleteUser.photo;
+        const publicId = photoUrl.split("/").slice(-2).join("/").split(".")[0];
+
+        try {
+            await cloudinary.uploader.destroy(publicId);
+        } catch (error) {
+            return next(new ApiError(500, "Error in deleting photo"));
+        }
     }
 
     res.status(200).json(

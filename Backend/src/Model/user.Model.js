@@ -27,7 +27,6 @@ const userSchema = new mongoose.Schema({
     },
     hobby: {
         type: String,
-        required: true,
         trim: true,
     },
     location: {

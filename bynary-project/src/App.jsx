@@ -1,8 +1,9 @@
 import React from 'react'
+import AdminLoginPage from './Pages/LoginPage'
 
 const App = () => {
   return (
-    <div className='h-screen flex justify-center items-center bg-teal-700 text-white text-6xl'>This is Bynry Project for the selection...</div>
+    <div ><AdminLoginPage/></div>
   )
 }
 

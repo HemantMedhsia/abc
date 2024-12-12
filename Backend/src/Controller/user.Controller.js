@@ -104,6 +104,7 @@ export const updateUser = wrapAsync(async (req, res, next) => {
 
 export const deleteUser = wrapAsync(async (req, res, next) => {
     const deleteUser = await User.findByIdAndDelete(req.body.id);
+    console.log(req.body.id);
 
     if (!deleteUser) {
         return next(new ApiError(404, "User Not Found"));

@@ -1,6 +1,6 @@
 export const getApiConfig = {
     getAllUsers: {
-      url: "/get-schools",
+      url: "/get-all-user",
       method: "GET",
     }
 }

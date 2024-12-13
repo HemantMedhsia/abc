@@ -38,10 +38,10 @@ const AdminLoginPage = () => {
         formData
       );
 
-      console.log("API Response received:", response); // Logs the complete Axios response object
-      console.log("API Response data:", response.data); // Logs only the `data` property
+      console.log("API Response received:", response);
+      console.log("API Response data:", response.data.data); // Logs only the `data` property
 
-      const { accessToken, refreshToken, admin } = response.data;
+      const { accessToken, refreshToken, admin } = response.data.data;
 
       // Validate that the required fields are present in the response
       if (!accessToken || !refreshToken || !admin || !admin.name) {

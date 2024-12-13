@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }) => {
     setName(null);
 
     setLoading(false);
-    navigate("/");
+    navigate("/admin-login");
   };
 
   return (

@@ -61,7 +61,7 @@ const RegistrationPage = () => {
   };
 
   return (
-    <div className="bg-gray-100 min-h-screen flex items-center justify-center py-12 px-6">
+    <div className="bg-gray-100 min-h-screen bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center py-12 px-6">
       <div className="bg-white rounded-lg shadow-lg max-w-3xl w-full p-8">
         <h1 className="text-4xl font-semibold text-center text-gray-800 mb-8">User Registration</h1>
 

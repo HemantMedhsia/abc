@@ -8,6 +8,7 @@ import RegistrationPage from "./Pages/RegistrationPage";
 import AdminUserPage from "./Pages/AdminUserPage";
 import { AuthProvider } from "./context/AuthProvider";
 import PrivateRoute from "./context/PrivateRoute";
+import NotFoundErrorPage from "./Pages/NotFoundErrorPage";
 
 const App = () => {
   return (
@@ -16,13 +17,11 @@ const App = () => {
         <div>
           <ToastContainer />
           <Routes>
-            <Route path="/" element={<AdminLoginPage />} />
+            <Route path="/admin-login" element={<AdminLoginPage />} />
             <Route
-              path="/all-user"
+              path="/"
               element={
-                <PrivateRoute>
                   <AllUser />
-                </PrivateRoute>
               }
             />
             <Route
@@ -41,7 +40,7 @@ const App = () => {
                 </PrivateRoute>
               }
             />
-            <Route path="*" element={<h1>Not Found</h1>} />
+            <Route path="*" element={<NotFoundErrorPage/>} />
           </Routes>
         </div>
       </AuthProvider>

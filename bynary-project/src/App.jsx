@@ -7,6 +7,7 @@ import AllUser from "./Pages/AllUser";
 import RegistrationPage from "./Pages/RegistrationPage";
 import AdminUserPage from "./Pages/AdminUserPage";
 import { AuthProvider } from "./context/AuthProvider";
+import PrivateRoute from "./context/PrivateRoute";
 
 const App = () => {
   return (
@@ -16,9 +17,30 @@ const App = () => {
           <ToastContainer />
           <Routes>
             <Route path="/" element={<AdminLoginPage />} />
-            <Route path="/all-user" element={<AllUser />} />
-            <Route path="/user-register" element={<RegistrationPage />} />
-            <Route path="/user-edit-delete" element={<AdminUserPage />} />
+            <Route
+              path="/all-user"
+              element={
+                <PrivateRoute>
+                  <AllUser />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/user-register"
+              element={
+                <PrivateRoute>
+                  <RegistrationPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/user-edit-delete"
+              element={
+                <PrivateRoute>
+                  <AdminUserPage />
+                </PrivateRoute>
+              }
+            />
             <Route path="*" element={<h1>Not Found</h1>} />
           </Routes>
         </div>

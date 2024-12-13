@@ -55,7 +55,7 @@ const AllUser = () => {
   }
 
   return (
-    <div className="container mx-auto px-6 py-10 bg-gray-50">
+    <div className="mx-auto px-6 py-10 h-screen bg-gradient-to-r from-blue-500 to-purple-600">
       <h1 className="text-4xl font-bold text-center text-gray-800 mb-8">
         All Users
       </h1>
@@ -71,27 +71,38 @@ const AllUser = () => {
         {filteredUsers.map((user) => (
           <div
             key={user._id}
-            className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 ease-in-out transform hover:scale-105"
+            className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-transform duration-300 ease-in-out transform hover:-translate-y-2"
           >
-            <img
-              src={user.photo}
-              alt={user.name}
-              className="w-32 h-32 rounded-full mx-auto mb-4 object-cover border-4 border-blue-500"
-            />
-            <h2 className="text-2xl font-semibold text-gray-800 text-center">
-              {user.name}
-            </h2>
-            <p className="text-gray-600 text-center">{user.email}</p>
-            <p className="text-gray-500 text-center mt-2">{user.description}</p>
-            <p className="text-gray-400 text-center mt-1">{user.address}</p>
-            <p className="text-gray-400 text-center mt-1">{user.hobby}</p>
-
-            <button
-              onClick={() => openModal(user)}
-              className="mt-6 w-full py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300"
-            >
-              Show Location
-            </button>
+            <div className="flex justify-center">
+              <img
+                src={user.photo}
+                alt={user.name}
+                className="w-24 h-24 rounded-full object-cover border-4 border-blue-600"
+              />
+            </div>
+            <div className="text-center mt-4">
+              <h2 className="text-xl font-bold text-gray-800">{user.name}</h2>
+              <p className="text-sm text-gray-500">{user.email}</p>
+            </div>
+            <div className="mt-4">
+              <p className="text-sm text-gray-700">
+                <strong>About:</strong> {user.description}
+              </p>
+              <p className="text-sm text-gray-700 mt-2">
+                <strong>Address:</strong> {user.address}
+              </p>
+              <p className="text-sm text-gray-700 mt-2">
+                <strong>Hobby:</strong> {user.hobby}
+              </p>
+            </div>
+            <div className="mt-6">
+              <button
+                onClick={() => openModal(user)}
+                className="w-full py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all duration-300"
+              >
+                Show Location
+              </button>
+            </div>
           </div>
         ))}
       </div>
